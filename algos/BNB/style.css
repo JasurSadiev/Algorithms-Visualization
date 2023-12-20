@@ -1,0 +1,21 @@
+body{
+    background-color: #343f51;
+    width: 100vw;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: white;
+}
+
+#canvas_div{
+    margin: auto;
+}
+
+a{
+    text-decoration: none;
+}

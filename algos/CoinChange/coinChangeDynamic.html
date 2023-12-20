@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      margin-bottom: 200px;
+    }
+
+    #input-container {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #coin-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .coin {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <a href="/Algorithm-Visualizer/index.html"><h1>Coin Change Using Dynamic Programming</h1></a>
+  <div id="input-container">
+    <label for="denominations">Enter Coin Denominations (comma-separated):</label>
+    <input type="text" id="denominations" placeholder="e.g., 4,3,1" />
+    <br />
+    <label for="amount">Enter Amount:</label>
+    <input type="number" id="amount" />
+    <button onclick="updateVisualization()">Change</button>
+  </div>
+
+  <div id="coin-container"></div>
+
+  <script>
+    function visualizeCoinChange(amount, denominations) {
+      function change(money, coins) {
+        let minNumCoins = [];
+        minNumCoins[0] = 0;
+  
+        for (let m = 1; m <= money; m++) {
+          minNumCoins[m] = Infinity;
+          for (let i = 0; i < coins.length; i++) {
+            if (m >= coins[i]) {
+              let numCoins = minNumCoins[m - coins[i]] + 1;
+  
+              if (numCoins < minNumCoins[m]) {
+                minNumCoins[m] = numCoins;
+              }
+            }
+          }
+        }
+  
+        return minNumCoins[money];
+      }
+  
+      let result = change(amount, denominations);
+  
+      let coinContainer = document.getElementById('coin-container');
+      coinContainer.innerHTML = '';
+  
+      for (let i = 0; i < result; i++) {
+        let coin = document.createElement('div');
+        coin.className = 'coin';
+        coin.innerText = denominations[i];
+        coinContainer.appendChild(coin);
+      }
+    }
+  
+    function updateVisualization() {
+      let amount = document.getElementById('amount').value;
+      let denominations = document.getElementById('denominations').value.split(',').map(Number);
+      visualizeCoinChange(amount, denominations);
+    }
+  
+    // Initial visualization with default values
+    visualizeCoinChange(8, [1, 3, 5]);
+  </script>
+  
+</body>
+</html>

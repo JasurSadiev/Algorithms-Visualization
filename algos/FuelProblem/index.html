@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    #container {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <label for="distance">Distance:</label>
+    <input type="number" id="distance" />
+    <label for="capacity">Fuel Tank Capacity:</label>
+    <input type="number" id="capacity" />
+    <label for="stops">Number of Stops:</label>
+    <input type="number" id="stops" />
+    <label for="distances">Distances Between Stops (comma-separated):</label>
+    <input type="text" id="distances" placeholder="e.g., 100,50,30" />
+    <br />
+    <button onclick="calculateFueling()">Calculate</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function carFueling(distance, capacity, numStops, distances) {
+      distances = distances.split(',').map(Number);
+      distances = [0, ...distances, distance];
+
+      numRefills = 0;
+      currentPosition = 0;
+      currentFuel = capacity;
+
+      while (currentPosition <= distances.length) {
+        if (currentFuel < distances[currentPosition + 1] - distances[currentPosition]) {
+          currentFuel = capacity;
+          numRefills++;
+        }
+        currentFuel -= distances[currentPosition + 1] - distances[currentPosition];
+        if (currentFuel < 0) return -1;
+        currentPosition++;
+      }
+
+      return numRefills;
+    }
+
+    function calculateFueling() {
+      const distance = parseInt(document.getElementById('distance').value);
+      const capacity = parseInt(document.getElementById('capacity').value);
+      const numStops = parseInt(document.getElementById('stops').value);
+      const distances = document.getElementById('distances').value;
+
+      const result = carFueling(distance, capacity, numStops, distances);
+      const resultElement = document.getElementById('result');
+
+      if (result === -1) {
+        resultElement.innerHTML = 'Cannot reach the destination with the given fuel tank capacity.';
+      } else {
+        resultElement.innerHTML = `Minimum number of refills needed: ${result}`;
+      }
+    }
+  </script>
+</body>
+</html>

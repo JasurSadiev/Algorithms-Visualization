@@ -1,0 +1,114 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #343f51;
+}
+
+#main {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+#header {
+  flex: 0 1 80px;
+  background-color: #343f51;
+  flex-direction: row;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+  /* height: 80px; */
+}
+
+#header-logo{
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+  margin-left: 50px;
+}
+
+#title {
+  text-align: center;
+  font-size: 27px;
+  color: white;
+  padding-top: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+
+}
+
+#header-title{
+  margin: auto;
+}
+
+#container {
+  flex: 1 1 auto;
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.algo-container {
+  flex: 0 0 25%; /* Set flex-basis to 25% so that it doesn't interfere with the width */
+  width: 25%;    /* Set a specific width for each item */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  display: inline-block;
+  font-weight: bold;
+}
+
+.imageContainer {
+  max-width: 90%;
+  margin: 10px auto;
+  /* border: 2px solid black ; */
+}
+
+.imageContainer:hover {
+  max-width: 97%;
+  animation: transition 0.2s;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 20px;
+}
+
+@keyframes transition {
+  from {
+    max-width: 90%;
+  }
+  to {
+    max-width: 97%;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #dcebff;
+  font-size: 20px;
+}
+
+@media (max-width: 1100px) {
+  .container {
+    flex: 0 0 48%;
+  }
+}
+
+.footer{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+}
